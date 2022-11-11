@@ -175,7 +175,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 330274cf2c5de4464a4b4b243b59e371, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -441,8 +441,8 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.6
-  m_Radius: 0.5
+  m_Height: 1.5
+  m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -455,28 +455,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1330384747}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35cb354f25326ff43b4fbe32a08a545c, type: 3}
+  m_Script: {fileID: 11500000, guid: 7769da095aaac3649aea37d003fe1726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Velocity: 10
-  InputX: 0
-  InputZ: 0
-  MoveDir: {x: 0, y: 0, z: 0}
-  blockRotationPlayer: 0
-  RotationSpeed: 0.1
-  Speed: 0
-  allowPlayerRotation: 0.1
-  cam: {fileID: 0}
-  isGrounded: 0
-  HorizontalAnimSmoothTime: 0.2
-  VerticalAnimTime: 0.2
-  StartAnimTime: 0.3
-  StopAnimTime: 0.15
-  verticalVel: 0
-  animator: {fileID: 0}
-  controller: {fileID: 0}
+--- !u!114 &1330384752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330384747}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce8d7c553bb139b408608b4b3ab79faf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 6
+  gravity: -9.8
+  jumpForce: 5
 --- !u!1001 &8081620538047804198
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -495,6 +493,10 @@ PrefabInstance:
     - target: {fileID: 8081620539268611149, guid: ff7339abfbf7633488bfb7c43a32d86d, type: 3}
       propertyPath: m_Name
       value: unitychan
+      objectReference: {fileID: 0}
+    - target: {fileID: 8081620539268611149, guid: ff7339abfbf7633488bfb7c43a32d86d, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8081620539268702637, guid: ff7339abfbf7633488bfb7c43a32d86d, type: 3}
       propertyPath: m_RootOrder
