@@ -19,8 +19,10 @@ public class PlayerCtrl : MonoBehaviour
         float z = Input.GetAxis("Vertical");    // 방향키 상하
 
         movement3D.MoveTo(new Vector3(x, 0f, z));
+        if(x == 0 && z == 0)
+            animator.SetBool("IsRun", false);
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             movement3D.JumpTo();
         }    

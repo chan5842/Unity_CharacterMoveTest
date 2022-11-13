@@ -10,10 +10,12 @@ public class Movement3D : MonoBehaviour
     Vector3 moveDir;                // 이동 방향
     
     CharacterController controller;
+    Animator animator;
 
     void Awake()
     {
         controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -28,13 +30,15 @@ public class Movement3D : MonoBehaviour
     public void MoveTo(Vector3 dir)
     {
         moveDir = new Vector3(dir.x, moveDir.y, dir.z);
+        animator.SetBool("IsRun", true);
+
     }
 
     public void JumpTo()
     {
         if (controller.isGrounded == true)
         {
-            Debug.Log("점프");
+            animator.SetTrigger("Jump");
             moveDir.y = jumpForce;
         }
     }
