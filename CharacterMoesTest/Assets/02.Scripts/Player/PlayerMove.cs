@@ -14,9 +14,15 @@ public class PlayerMove : MonoBehaviour
     float InitSpeed = 6f;           // 플레이어 초기 이동속도
     public float turnSpeed = 80f;    // 플레이어 회전 속도
     public bool isWalk;             // 플레이어 달리기 유무
-    public float jumpPower = 10f;    // 플레이어 점프에 가해지는 힘
-
     float h, v, r;
+
+    [Header("점프 관련 변수")]
+    public float jumpPower = 10f;   // 플레이어 점프에 가해지는 힘
+    [SerializeField]
+    bool isJump = false;            // 점프 상태
+    [SerializeField]
+    bool isGrounded = false;        // 땅에 닿아 있는 상태
+
 
     void Start()
     {
@@ -29,7 +35,8 @@ public class PlayerMove : MonoBehaviour
     {
         Move();
         Turn();
-        if (Input.GetKeyDown(KeyCode.Space))
+        // 점프 중인 상태가 아니며 땅에 닿아있을 경우에만 점프 기능 실행
+        if (Input.GetKeyDown(KeyCode.Space) && isJump == false && isGrounded == true)   
             Jump();
     }
 
@@ -82,5 +89,23 @@ public class PlayerMove : MonoBehaviour
     {
         Debug.Log("점프");
         rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+    }
+
+    private void OnCollisionEnter(Collision col)
+    {
+        if(col.collider.CompareTag("Ground"))
+        {
+            isGrounded = true;
+            isJump = false;
+        }
+    }
+
+    private void OnCollisionExit(Collision col)
+    {
+        if (col.collider.CompareTag("Ground"))
+        {
+            isGrounded = false;
+            isJump = true;
+        }
     }
 }
