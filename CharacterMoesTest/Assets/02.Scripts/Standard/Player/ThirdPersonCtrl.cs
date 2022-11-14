@@ -190,6 +190,7 @@ public class ThirdPersonCtrl : MonoBehaviour
 
     void Move()
     {
+        
         // 걷기 유무에 따른 이동속도 할당
         float targetSpeed = input.isWalk ? WalkSpeed : MoveSpeed;
 

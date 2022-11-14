@@ -14,30 +14,38 @@ public class PlayerAction : MonoBehaviour
 {
     [Header("아리 여우불 관련 오브젝트")]
     public GameObject[] FoxFires;   // 공전하는 여우불 배열 
+    Animator animator;
 
     public bool isSkill;
-    float speed = 10f;
+    //float speed = 10f;
 
-    float fireRate = 1.5f;          // 발사 대기 시간
+    float fireRate = 8f;          // 발사 대기 시간
     float nextFire = 0f;
 
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        // 마우스 오른쪽 버튼을 누르면 스킬이 활성화
+        if (isSkill) return;
+
         if (Input.GetMouseButtonDown(1) && Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
             foreach (GameObject fire in FoxFires)
             {
                 fire.SetActive(true);
+                animator.SetTrigger("Fox_FireGuard");
                 isSkill = true;
             }
         }
+
+        //if(T)
+        //{
+        //    isSkill = false;
+        //}
     }
     
 

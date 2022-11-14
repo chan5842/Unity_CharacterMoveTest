@@ -11,16 +11,14 @@ public class ThrowFireBall : MonoBehaviour
     [SerializeField]
     GameObject FireBall;            // 여우불 오브젝트
 
-    public float throwPower = 800f; // 여우불이 던져지는 힘
+    string playerTag = "Player";
 
-    readonly string playerTag = "Player";
-
-    float fireRate = 0.5f;          // 발사 대기 시간
+    float fireRate = 1f;          // 발사 대기 시간
     float nextFire = 0f;
    
     void Start()
     {
-        animator = GetComponentInChildren<Animator>();
+        animator = GetComponent<Animator>();
         source = GetComponent<AudioSource>();
         FireBall = Resources.Load("Magic fire") as GameObject;
         //FirePos = GameObject.FindGameObjectWithTag(playerTag).transform.GetChild(1).GetComponent<Transform>();
@@ -30,6 +28,7 @@ public class ThrowFireBall : MonoBehaviour
     {
         if(Input.GetButtonDown("Fire1") && Time.time > nextFire)
         {
+
             Fire();
         }
     }
@@ -39,6 +38,6 @@ public class ThrowFireBall : MonoBehaviour
         nextFire = Time.time + fireRate;
         GameObject Fire = Instantiate(FireBall, FirePos.position, FirePos.rotation);
         //Fire.GetComponent<Rigidbody>().velocity = Fire.transform.forward * throwPower;
-        animator.SetTrigger("Throw");
+        animator.SetTrigger("Fox_Attack");
     }
 }

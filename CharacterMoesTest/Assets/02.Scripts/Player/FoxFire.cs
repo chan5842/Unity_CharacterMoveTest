@@ -17,12 +17,10 @@ public class FoxFire : MonoBehaviour
     [SerializeField]
     LayerMask layerMask = 0;
 
-    PlayerAction playerAction;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        playerAction = GetComponent<PlayerAction>();
     }
 
     private void OnEnable()
@@ -69,12 +67,17 @@ public class FoxFire : MonoBehaviour
         SeachEnemy();
 
         yield return new WaitForSeconds(5f);
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("ENEMY"))
-            Destroy(gameObject);
+        {
+            gameObject.SetActive(false);
+        }
+
+        //Destroy(gameObject);
     }
 }
