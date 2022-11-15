@@ -16,11 +16,11 @@ public class PlayerAction : MonoBehaviour
     public GameObject[] FoxFires;   // 공전하는 여우불 배열 
     Animator animator;
 
-    public bool isSkill;
+    public bool canSkill;           // 스킬 사용 가능 상태 유무
     //float speed = 10f;
 
-    float fireRate = 8f;          // 발사 대기 시간
-    float nextFire = 0f;
+    float skill1_CoolTime = 10f;
+    float skill_CoolTimer;
 
     void Start()
     {
@@ -29,23 +29,27 @@ public class PlayerAction : MonoBehaviour
 
     void Update()
     {
-        if (isSkill) return;
-
-        if (Input.GetMouseButtonDown(1) && Time.time > nextFire)
+        if (Input.GetMouseButtonDown(1))
         {
-            nextFire = Time.time + fireRate;
-            foreach (GameObject fire in FoxFires)
+            if(canSkill)
             {
-                fire.SetActive(true);
-                animator.SetTrigger("Fox_FireGuard");
-                isSkill = true;
+                foreach (GameObject fire in FoxFires)
+                {
+                    fire.SetActive(true);
+                    animator.SetTrigger("Fox_FireGuard");
+                }
             }
+            canSkill = false;
         }
-
-        //if(T)
-        //{
-        //    isSkill = false;
-        //}
+        CoolDown();
+    }
+    void CoolDown()
+    {
+        if(!canSkill)
+        {
+            skill1_CoolTime += Time.deltaTime;
+            //if(skill_CoolTimer)
+        }
     }
     
 
