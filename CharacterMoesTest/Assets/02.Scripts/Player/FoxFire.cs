@@ -30,20 +30,20 @@ public class FoxFire : MonoBehaviour
 
     void Update()
     {
-        SeachEnemy();
-        // 표적이 있다면 앞으로 발사
-        if (target != null)
-        {
-            if (currentSpeed <= speed)
-                currentSpeed += speed * Time.deltaTime;
+        //SeachEnemy();
+        //// 표적이 있다면 앞으로 발사
+        //if (target != null)
+        //{
+        //    if (currentSpeed <= speed)
+        //        currentSpeed += speed * Time.deltaTime;
 
-            transform.position += transform.forward * currentSpeed * Time.deltaTime;
+        //    transform.position += transform.forward * currentSpeed * Time.deltaTime;
 
-            Vector3 dir = (target.position - transform.position).normalized;
+        //    Vector3 dir = (target.position - transform.position).normalized;
 
-            // 선형 보간을 통해 자연스럽게 적을 추적하며 날아감
-            transform.forward = Vector3.Lerp(transform.forward, dir, 0.25f);
-        }
+        //    // 선형 보간을 통해 자연스럽게 적을 추적하며 날아감
+        //    transform.forward = Vector3.Lerp(transform.forward, dir, 0.25f);
+        //}
     }
 
     // 범위 내에 적들 찾는 함수

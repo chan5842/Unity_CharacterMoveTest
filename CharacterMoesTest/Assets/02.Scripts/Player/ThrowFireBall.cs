@@ -11,7 +11,7 @@ public class ThrowFireBall : MonoBehaviour
     [SerializeField]
     GameObject FireBall;            // 여우불 오브젝트
 
-    string playerTag = "Player";
+    readonly string playerTag = "Player";
 
     float fireRate = 1f;          // 발사 대기 시간
     float nextFire = 0f;

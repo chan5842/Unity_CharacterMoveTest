@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Shooter : MonoBehaviour
 {
+    public Transform FirePos;
     public GameObject m_bulletPrefab; // 미사일 프리팹.
     public GameObject m_target; // 도착 지점.
 
@@ -27,24 +28,27 @@ public class Shooter : MonoBehaviour
     public float Skill_1_CoolTime = 7.0f; //강공격 쿨타임
     private float Skill_1_Timer;
 
-    PlayerCtrlEagle playerctrl;
+    ThirdPersonCtrl playerctrl;
+    ChangeForm Form;
     void Start()
     {
-        playerctrl = GetComponent<PlayerCtrlEagle>();
+        playerctrl = GetComponent<ThirdPersonCtrl>();
+        Form = GetComponent<ChangeForm>();
     }
     void Update()
     {
-        Fire();
+        if(Form.curForm == ChangeForm.FormType.EAGLE)
+            Fire();
     }
     private void Fire() //공격 관련 함수
     {
-        if(Input.GetMouseButton(0) && playerctrl.isGround)
+        if(Input.GetMouseButton(0) && playerctrl.isGrounded)
         {
             Click_Timer += Time.deltaTime;
         }
         if (Input.GetMouseButtonUp(0))
         {
-            if(Click_Timer < 2.0f && playerctrl.isGround)
+            if(Click_Timer < 2.0f && playerctrl.isGrounded)
             {
                 if (CanFire)
                 {
@@ -57,7 +61,7 @@ public class Shooter : MonoBehaviour
                 }
                 CanFire = false;
             }
-            else if(Click_Timer > 2.0f && playerctrl.isGround)
+            else if(Click_Timer > 2.0f && playerctrl.isGrounded)
             {
                 if (Skill_1)
                 {
@@ -107,8 +111,8 @@ public class Shooter : MonoBehaviour
             {
                 if (_shotCount > 0)
                 {
-                    GameObject missile = Instantiate(m_bulletPrefab);
-                    missile.GetComponent<BezierMissile>().Init(this.gameObject.transform, m_target.transform, m_speed, m_distanceFromStart, m_distanceFromEnd);
+                    GameObject missile = Instantiate(m_bulletPrefab, FirePos.position, Quaternion.identity);
+                    missile.GetComponent<BezierMissile>().Init(FirePos, m_target.transform, m_speed, m_distanceFromStart, m_distanceFromEnd);
 
                     _shotCount--;
                 }

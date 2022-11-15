@@ -21,7 +21,6 @@ public class ChangeForm : MonoBehaviour
     public float charForm_CoolTime = 7.0f;  // 폼 전환 쿨타임
     public float charForm_Timer;
 
-
     void Update()
     {
         FormChange();
@@ -55,12 +54,17 @@ public class ChangeForm : MonoBehaviour
                  * 예시 : https://rito15.github.io/posts/unity-memo-cooldown-icon-ui/
                 */
             }
+            else
+            {
+                Debug.Log("쿨타임 중입니다.");
+            }
             canFormChange = false;
         }
 
         // 상단의 숫자2을 누르면 호랑이 폼으로 전환
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
+            if (curForm == FormType.TIGER) return;
             if (canFormChange)
             {
                 /* 
@@ -73,11 +77,16 @@ public class ChangeForm : MonoBehaviour
                 curForm = FormType.TIGER;
                 ChangeFormSprite();
             }
+            else
+            {
+                Debug.Log("쿨타임 중입니다.");
+            }
             canFormChange = false;
         }
         // 상단의 숫자3을 누르면 독수리 폼으로 전환
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
+            if (curForm == FormType.TIGER) return;
             if (canFormChange)
             {
                 /* 
@@ -89,6 +98,10 @@ public class ChangeForm : MonoBehaviour
                 */
                 curForm = FormType.EAGLE;
                 ChangeFormSprite();
+            }
+            else
+            {
+                Debug.Log("쿨타임 중입니다.");
             }
             canFormChange = false;
 
