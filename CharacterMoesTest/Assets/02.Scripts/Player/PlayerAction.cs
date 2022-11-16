@@ -30,13 +30,31 @@ public class PlayerAction : MonoBehaviour
     float skill1_CoolTime = 10f;
     float skill_CoolTimer;
 
+    [Header("호랑이 펀치")]
+    public CapsuleCollider[] punchColliders;
+    float lastAttackTime = 0f;  // 마지막으로 공격한 시간
+    bool isPunching;            // 공격중 인지 확인
+    int punchCount = 0;
+    readonly int hashCombo = Animator.StringToHash("Combo");
+    public GameObject thirdEffect;
+
     void Start()
     {
         Form = GetComponent<ChangeForm>();
         controller = GetComponent<CharacterController>();
         FireBall = Resources.Load("Magic fire") as GameObject;
-
         animator = GetComponent<Animator>();
+
+        AttackCollider(false);
+
+    }
+
+    private void AttackCollider(bool isActive)
+    {
+        foreach (var col in punchColliders)
+        {
+            col.enabled = isActive;
+        }
     }
 
     void Update()
@@ -64,7 +82,20 @@ public class PlayerAction : MonoBehaviour
         }
         else if(Form.curForm == ChangeForm.FormType.TIGER)
         {
-
+            if(Input.GetButtonDown("Fire1"))
+            {
+                isPunching = true;
+                AttackCollider(true);
+                animator.SetBool(hashCombo, true);
+                StartCoroutine(StartPunch());
+            }
+            else if(Input.GetButtonUp("Fire1"))
+            {
+                isPunching = false;
+                AttackCollider(false);
+                animator.SetBool(hashCombo, isPunching);
+                punchCount = 0;
+            }
         }
         else if(Form.curForm == ChangeForm.FormType.EAGLE)
         {
@@ -89,31 +120,22 @@ public class PlayerAction : MonoBehaviour
         }
     }
 
-    //void Fly() //비행 관련 함수
-    //{
-    //    if (controller.isGrounded == false)
-    //    {
-    //        if (Input.GetKeyDown(KeyCode.E) && CanFly && !isFly)
-    //        {
-    //            rd.drag = 10.0f;
-    //            isJump = false;
-    //            isFly = true;
-    //            CanJump = false;
-    //            CanFlyAttack = true;
-    //        }
-    //        else if (Input.GetKeyDown(KeyCode.E) && CanFly && isFly)
-    //        {
-    //            rd.drag = 0;
-    //            isJump = false;
-    //            isFly = false;
-    //        }
-    //        else if (Input.GetMouseButtonDown(0) && CanFlyAttack && !CanJump)
-    //        {
-    //            rd.drag = 0;
-    //            isFlyAttack = true;
-    //            FlyAttackActive();
-    //        }
-    //    }
-    //}
+    IEnumerator StartPunch()
+    {
+        if(Time.time - lastAttackTime > 1f)
+        {
+            lastAttackTime = Time.time;
+            punchCount++;
+            if(punchCount == 3)
+            {
+                punchCount = 0;
+            }
+            while(isPunching)
+            {
+                animator.SetBool(hashCombo, true);
+                yield return new WaitForSeconds(1f);
+            }
+        }
+    }
 
 }

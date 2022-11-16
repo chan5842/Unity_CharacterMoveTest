@@ -20,7 +20,7 @@ public class Shooter : MonoBehaviour
 
     [Header("일반공격 관련")]
     private bool CanFire = true;
-    public float NextFire = 2.0f; //일반공격 -> 다음 공격과의 딜레이주는 변수
+    public float NextFire = 1.0f; //일반공격 -> 다음 공격과의 딜레이주는 변수
     private float NextFireTimer;
     private float Click_Timer;
     [Header("강공격 관련")]

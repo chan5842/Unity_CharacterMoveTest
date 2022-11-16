@@ -7,6 +7,11 @@ TagManager:
   - FIREBALL
   - Ground
   - ENEMY
+  - BULLET
+  - FOX_FIRE
+  - Enemy
+  - FLYATTACKRANGE
+  - PUNCH
   layers:
   - Default
   - TransparentFX
